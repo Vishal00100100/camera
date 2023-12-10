@@ -1,0 +1,24 @@
+<!-- second-site.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second Site</title>
+</head>
+<body>
+    <h1>Welcome to the Second Site</h1>
+    <video id="remoteVideo" width="640" height="480" autoplay></video>
+
+    <script>
+        var socket = io('http://127.0.0.1:5500/camera%20output.html'); // Replace with your server URL
+        var remoteVideo = document.getElementById('remoteVideo');
+
+        // Receive the stream from the first site
+        socket.on('stream', function (stream) {
+            remoteVideo.srcObject = stream;
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</body>
+</html>

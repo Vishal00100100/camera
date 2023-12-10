@@ -1,0 +1,31 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera Input and Video Display</title>
+</head>
+<body>
+    <h1>Camera Input and Video Display</h1>
+    <video id="cameraFeed" width="640" height="480" autoplay></video>
+
+    <script>
+        // Using socket.io for communication
+        var socket = io('http://127.0.0.1:5500/camera%20input.html'); // Replace with your server URL
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                var video = document.getElementById('cameraFeed');
+                video.srcObject = stream;
+
+                // Send the stream to the server
+                socket.emit('stream', stream);
+            })
+            .catch(function (err) {
+                console.error("Error accessing camera: ", err);
+            });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</body>
+</html>
